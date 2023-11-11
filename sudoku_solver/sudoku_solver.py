@@ -1,65 +1,48 @@
-from dataclasses import dataclass
+from typing import List
 
 
-@dataclass
 class Cell:
     value: int = 0
 
+    def is_solved(self) -> bool:
+        return self.value != 0
 
-@dataclass
+
 class Row:
     def __init__(self):
-        self.cells = []
+        self.possible_values = set(range(1, 10))
+        self.cells: List[Cell] = []
+
+    def add_cell(self, cell: Cell):
+        if cell.value != 0:
+            self.possible_values.remove(cell.value)
+        self.cells.append(cell)
+
+    def solve(self):
+        for cell in self.cells:
+            if not cell.is_solved():
+                if len(self.possible_values) == 1:
+                    cell.value = self.possible_values.pop()
 
 
 class Sudoku:
     def __init__(self):
-        self.rows = []
+        self.rows: List[Row] = []
 
-    @staticmethod
-    def from_string(string_sudoku: str) -> 'Sudoku':
-        sudoku = Sudoku()
-        string_sudoku_stripped = string_sudoku.strip().strip("\n")
-        lines = string_sudoku_stripped.splitlines()
-        for idx, line in enumerate(lines):
-            if idx in [3, 7]:
-                continue
-            row = Sudoku.parse_sudoku_row_string(line)
-            sudoku.rows.append(row)
-        return sudoku
-    
-    @staticmethod
-    def parse_sudoku_row_string(string_sudoku_row: str) -> Row:
-        row = Row()
-        number_indices = [0, 2, 4, 8, 10, 12, 16, 18, 20]
-        for index in number_indices:
-            number = string_sudoku_row[index]
-            if number == " ":
-                value = 0
-            else:
-                value = int(number)
-            cell = Cell(value)
-            row.cells.append(cell)
-        return row
+    def solve(self) -> None:
+        assert len(self.rows) == 9, "Sudoku should contain 9 rows"
+        for row in self.rows:
+            row.solve()
 
     def to_string(self) -> str:
         string_sudoku = ""
         for idx, row in enumerate(self.rows):
             for cell_number, cell in enumerate(row.cells):
-                string_sudoku += str(cell.value) + " "
+                string_value = str(cell.value) if cell.value != 0 else " "
+                string_sudoku += string_value + " "
                 if cell_number == 2 or cell_number == 5:
                     string_sudoku += "| "
-            string_sudoku = string_sudoku.strip()
             string_sudoku += "\n"
             if idx == 2 or idx == 5:
-                string_sudoku += "---------------------\n"
+                string_sudoku += "--------------------- \n"
         return string_sudoku
-
-
-def solve_sudoku(string_sudoku):
-    sudoku = Sudoku()
-    print(string_sudoku)
-    sudoku.from_string(string_sudoku)
-    result = sudoku.to_string()
-    print(result)
-    return result
