@@ -4,26 +4,40 @@ from typing import List
 class Cell:
     def __init__(self, value: int):
         self.value: int = value
+        self.possible_values = set(range(1, 10))
 
     def is_solved(self) -> bool:
         return self.value != 0
 
+class Column:
+    def __init__(self):
+        self.cells: List[Cell] = []
+
+    def add_cell(self, value: int):
+        cell = Cell(value)
+        self.cells.append(cell)
+
+    def solve(self):
+        possible_values = set(range(1, 10)) - set([cell.value for cell in self.cells])
+        for cell in self.cells:
+            if not cell.is_solved():
+                if len(possible_values) == 1:
+                    cell.value = possible_values.pop()
 
 class Row:
     def __init__(self):
         self.cells: List[Cell] = []
-        self.possible_values = set(range(1, 10))
 
-    def add_cell(self, cell: Cell):
-        if cell.value != 0:
-            self.possible_values.remove(cell.value)
+    def add_cell(self, value: int):
+        cell = Cell(value)
         self.cells.append(cell)
 
     def solve(self):
+        possible_values = set(range(1, 10)) - set([cell.value for cell in self.cells])
         for cell in self.cells:
             if not cell.is_solved():
-                if len(self.possible_values) == 1:
-                    cell.value = self.possible_values.pop()
+                if len(possible_values) == 1:
+                    cell.value = possible_values.pop()
 
 
 class Sudoku:

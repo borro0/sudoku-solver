@@ -1,4 +1,4 @@
-from sudoku_solver.sudoku_solver import Sudoku, Row, Cell
+from sudoku_solver.sudoku_solver import Sudoku, Row
 
 def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     sudoku = Sudoku()
@@ -20,6 +20,5 @@ def parse_sudoku_row_string(string_sudoku_row: str) -> Row:
             value = 0
         else:
             value = int(number)
-        cell = Cell(value)
-        row.add_cell(cell)
+        row.add_cell(value)
     return row
