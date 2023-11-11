@@ -2,7 +2,8 @@ from typing import List
 
 
 class Cell:
-    value: int = 0
+    def __init__(self, value: int):
+        self.value: int = value
 
     def is_solved(self) -> bool:
         return self.value != 0
@@ -10,8 +11,8 @@ class Cell:
 
 class Row:
     def __init__(self):
-        self.possible_values = set(range(1, 10))
         self.cells: List[Cell] = []
+        self.possible_values = set(range(1, 10))
 
     def add_cell(self, cell: Cell):
         if cell.value != 0:

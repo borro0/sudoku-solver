@@ -1,4 +1,5 @@
 from sudoku_solver.sudoku_solver import Sudoku
+from sudoku_solver.sudoku_string_parser import parse_sudoku_from_string
 
 
 def test_FromAndToStringCompleteSolution():
@@ -15,7 +16,7 @@ def test_FromAndToStringCompleteSolution():
         "9 7 5 | 3 4 6 | 2 1 8 \n"
         "2 3 1 | 8 5 7 | 6 4 9 \n"
     )
-    sudoku = Sudoku.from_string(sudoku_string_input)
+    sudoku = parse_sudoku_from_string(sudoku_string_input)
     sudoku_string_output = sudoku.to_string()
     assert sudoku_string_output == sudoku_string_input
 
@@ -34,7 +35,7 @@ def test_FromAndToStringInCompleteSolution():
         "9 7 5 |   4 6 | 2 1 8 \n"
         "2 3 1 | 8 5 7 | 6 4 9 \n"
     )
-    sudoku = Sudoku.from_string(sudoku_string_input)
+    sudoku = parse_sudoku_from_string(sudoku_string_input)
     sudoku_string_output = sudoku.to_string()
     assert sudoku_string_output == sudoku_string_input
 
@@ -66,7 +67,7 @@ def test_SolveSingleElementInRow():
         "9 7 5 | 3 4 6 | 2 1 8 \n"
         "2 3 1 | 8 5 7 | 6 4 9 \n"
     )
-    sudoku = Sudoku.from_string(sudoku_string_input)
+    sudoku = parse_sudoku_from_string(sudoku_string_input)
     sudoku.solve()
     sudoku_string_output = sudoku.to_string()
     assert sudoku_string_output == sudoku_string_solved

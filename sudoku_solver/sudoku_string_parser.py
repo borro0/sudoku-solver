@@ -1,13 +1,13 @@
 from sudoku_solver.sudoku_solver import Sudoku, Row, Cell
 
-def from_string(string_sudoku: str) -> "Sudoku":
+def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     sudoku = Sudoku()
     string_sudoku_stripped = string_sudoku.strip().strip("\n")
     lines = string_sudoku_stripped.splitlines()
     for idx, line in enumerate(lines):
         if idx in [3, 7]:
             continue
-        row = Sudoku.parse_sudoku_row_string(line)
+        row = parse_sudoku_row_string(line)
         sudoku.rows.append(row)
     return sudoku
 
