@@ -1,4 +1,4 @@
-from sudoku_solver.sudoku_solver import Sudoku, Row
+from sudoku_solver.sudoku_solver import Sudoku, Row, Cell
 
 def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     sudoku = Sudoku()
@@ -7,18 +7,17 @@ def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     for idx, line in enumerate(lines):
         if idx in [3, 7]:
             continue
-        row = parse_sudoku_row_string(line)
+        row = parse_sudoku_row_string(sudoku, line)
         sudoku.rows.append(row)
     return sudoku
 
-def parse_sudoku_row_string(string_sudoku_row: str) -> Row:
+def parse_sudoku_row_string(sudoku: Sudoku, string_sudoku_row: str) -> Row:
     row = Row()
     number_indices = [0, 2, 4, 8, 10, 12, 16, 18, 20]
-    for index in number_indices:
+    for idx, index in enumerate(number_indices):
         number = string_sudoku_row[index]
-        if number == " ":
-            value = 0
-        else:
-            value = int(number)
-        row.add_cell(value)
+        value = int(number) if number != " " else 0
+        cell = Cell(value)
+        row.cells.append(cell)
+        sudoku.columns[idx].cells.append(cell)
     return row

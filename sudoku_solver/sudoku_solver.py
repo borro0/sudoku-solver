@@ -43,6 +43,9 @@ class Row:
 class Sudoku:
     def __init__(self):
         self.rows: List[Row] = []
+        self.columns: List[Column] = []
+        for _ in range(9):
+            self.columns.append(Column())
 
     def solve(self) -> None:
         assert len(self.rows) == 9, "Sudoku should contain 9 rows"

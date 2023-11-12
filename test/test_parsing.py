@@ -43,21 +43,21 @@ def test_FromAndToStringInCompleteSolution():
     assert sudoku_string_output == sudoku_string_input
 
 
-# def test_ColumnsParsedCorrectly(completed_sudoku_string):
-#     columns = [
-#         [5, 3, 4, 7, 1, 8, 6, 9, 2],
-#         [1, 8, 9, 5, 2, 6, 4, 7, 3],
-#         [7, 6, 2, 4, 9, 3, 8, 5, 1],
-#         [6, 1, 5, 9, 4, 7, 2, 3, 8],
-#         [8, 2, 7, 3, 6, 1, 9, 4, 5],
-#         [9, 4, 3, 2, 8, 5, 1, 6, 7],
-#         [4, 5, 1, 8, 3, 9, 7, 2, 6],
-#         [3, 9, 8, 6, 7, 2, 5, 1, 4],
-#         [2, 7, 6, 1, 5, 4, 3, 8, 9],
-#     ]
-#     sudoku = parse_sudoku_from_string(completed_sudoku_string)
-#     assert len(sudoku.columns) == 9
-#     for column in sudoku.columns:
-#         assert len(column.cells) == 9
-#         for idx, cell in enumerate(column.cells):
-#             assert cell.value == column[idx]
+def test_ColumnsParsedCorrectly(completed_sudoku_string):
+    columns = [
+        [5, 3, 4, 7, 1, 8, 6, 9, 2],
+        [1, 8, 9, 5, 2, 6, 4, 7, 3],
+        [7, 6, 2, 4, 9, 3, 8, 5, 1],
+        [6, 1, 5, 9, 4, 7, 2, 3, 8],
+        [8, 2, 7, 3, 6, 1, 9, 4, 5],
+        [9, 4, 3, 2, 8, 5, 1, 6, 7],
+        [4, 5, 1, 8, 3, 9, 7, 2, 6], 
+        [3, 9, 8, 6, 7, 2, 5, 1, 4],
+        [2, 7, 6, 1, 5, 4, 3, 8, 9],
+    ]
+    sudoku = parse_sudoku_from_string(completed_sudoku_string)
+    assert len(sudoku.columns) == 9
+    for idx_column, column in enumerate(sudoku.columns):
+        assert len(column.cells) == 9
+        for idx_cell, cell in enumerate(column.cells):
+            assert cell.value == columns[idx_column][idx_cell]
