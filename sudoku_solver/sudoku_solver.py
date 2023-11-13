@@ -51,6 +51,8 @@ class Sudoku:
         assert len(self.rows) == 9, "Sudoku should contain 9 rows"
         for row in self.rows:
             row.solve()
+        for column in self.columns:
+            column.solve()
 
     def to_string(self) -> str:
         string_sudoku = ""
