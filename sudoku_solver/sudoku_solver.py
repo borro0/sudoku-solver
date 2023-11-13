@@ -31,9 +31,11 @@ class Sudoku:
     def __init__(self):
         self.rows: List[Row] = []
         self.columns: List[Column] = []
+        self.squares: List[Cluster] = []
         for _ in range(9):
             self.rows.append(Row())
             self.columns.append(Column())
+            self.squares.append(Cluster())
 
     def solve(self) -> None:
         assert len(self.rows) == 9, "Sudoku should contain 9 rows"
@@ -41,6 +43,8 @@ class Sudoku:
             row.solve()
         for column in self.columns:
             column.solve()
+        for square in self.squares:
+            square.solve()
 
     def to_string(self) -> str:
         string_sudoku = ""

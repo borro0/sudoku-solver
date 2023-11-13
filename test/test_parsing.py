@@ -61,3 +61,23 @@ def test_ColumnsParsedCorrectly(completed_sudoku_string):
         assert len(column.cells) == 9
         for idx_cell, cell in enumerate(column.cells):
             assert cell.value == columns[idx_column][idx_cell]
+
+def test_SquaresParsedCorrectly(completed_sudoku_string):
+    squares = [
+        [5, 1, 7, 3, 8, 6, 4, 9, 2],
+        [6, 8, 9, 1, 2, 4, 5, 7, 3],
+        [4, 3, 2, 5, 9, 7, 1, 8, 6],
+        [7, 5, 4, 1, 2, 9, 8, 6, 3],
+        [9, 3, 2, 4, 6, 8, 7, 1, 5],
+        [8, 6, 1, 3, 7, 5, 9, 2, 4],
+        [6, 4, 8, 9, 7, 5, 2, 3, 1],
+        [2, 9, 1, 3, 4, 6, 8, 5, 7],
+        [7, 5, 3, 2, 1, 8, 6, 4, 9],
+    ]
+    sudoku = parse_sudoku_from_string(completed_sudoku_string)
+    assert len(sudoku.squares) == 9
+    for idx_square, square in enumerate(sudoku.squares):
+        assert len(square.cells) == 9
+        for idx_cell, cell in enumerate(square.cells):
+            print(idx_square, idx_cell)
+            assert cell.value == squares[idx_square][idx_cell]

@@ -14,9 +14,13 @@ def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
 
 def parse_sudoku_row_string(sudoku: Sudoku, string_sudoku_row: str, row_number: int) -> Row:
     number_indices = [0, 2, 4, 8, 10, 12, 16, 18, 20]
-    for idx, index in enumerate(number_indices):
+    for column_number, index in enumerate(number_indices):
         number = string_sudoku_row[index]
         value = int(number) if number != " " else 0
         cell = Cell(value)
         sudoku.rows[row_number].cells.append(cell)
-        sudoku.columns[idx].cells.append(cell)
+        sudoku.columns[column_number].cells.append(cell)
+        sudoku.squares[get_square_number(row_number, column_number)].cells.append(cell)
+
+def get_square_number(row_number: int, column_number: int) -> int:
+    return (row_number // 3) * 3 + column_number // 3
