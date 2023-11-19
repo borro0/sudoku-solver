@@ -1,4 +1,5 @@
-from sudoku_solver.sudoku_solver import Sudoku, Row, Cell
+from sudoku_solver.sudoku_solver import Sudoku, Cluster, Cell
+
 
 def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     sudoku = Sudoku()
@@ -12,15 +13,22 @@ def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
         row_number += 1
     return sudoku
 
-def parse_sudoku_row_string(sudoku: Sudoku, string_sudoku_row: str, row_number: int) -> Row:
+
+def parse_sudoku_row_string(
+    sudoku: Sudoku, string_sudoku_row: str, row_number: int
+) -> Cluster:
     number_indices = [0, 2, 4, 8, 10, 12, 16, 18, 20]
     for column_number, index in enumerate(number_indices):
         number = string_sudoku_row[index]
         value = int(number) if number != " " else 0
-        cell = Cell(value)
-        sudoku.rows[row_number].cells.append(cell)
-        sudoku.columns[column_number].cells.append(cell)
-        sudoku.squares[get_square_number(row_number, column_number)].cells.append(cell)
+        row = sudoku.rows[row_number]
+        column = sudoku.columns[column_number]
+        square = sudoku.squares[get_square_number(row_number, column_number)]
+        cell = Cell(value, row, column, square)
+        row.cells.append(cell)
+        column.cells.append(cell)
+        square.cells.append(cell)
+
 
 def convert_sudoku_to_sting(sudoku: Sudoku) -> str:
     string_sudoku = ""
@@ -34,6 +42,7 @@ def convert_sudoku_to_sting(sudoku: Sudoku) -> str:
         if idx == 2 or idx == 5:
             string_sudoku += "--------------------- \n"
     return string_sudoku
+
 
 def get_square_number(row_number: int, column_number: int) -> int:
     return (row_number // 3) * 3 + column_number // 3

@@ -2,16 +2,31 @@ from typing import List
 
 
 class Cell:
-    def __init__(self, value: int):
-        self.value: int = value
+    def __init__(self, value: int, row: 'Cluster', column: 'Cluster', square: 'Cluster'):
+        self._value = value
+        self.row = row
+        self.column = column
+        self.square = square
         self.possible_values = set(range(1, 10))
 
+    @property
+    def value(self) -> int:
+        return self._value
+
+    @value.setter
+    def value(self, value: int):
+        self._value = value
+        self.row.dirty = True
+        self.column.dirty = True
+        self.square.dirty = True
+        
     def is_solved(self) -> bool:
         return self.value != 0
 
 class Cluster:
     def __init__(self):
         self.cells: List[Cell] = []
+        self.dirty = True
 
     def solve(self):
         possible_values = set(range(1, 10)) - set([cell.value for cell in self.cells])
@@ -20,21 +35,14 @@ class Cluster:
                 if len(possible_values) == 1:
                     cell.value = possible_values.pop()
 
-class Column(Cluster):
-    pass
-
-class Row(Cluster):
-    pass
-
-
 class Sudoku:
     def __init__(self):
-        self.rows: List[Row] = []
-        self.columns: List[Column] = []
+        self.rows: List[Cluster] = []
+        self.columns: List[Cluster] = []
         self.squares: List[Cluster] = []
         for _ in range(9):
-            self.rows.append(Row())
-            self.columns.append(Column())
+            self.rows.append(Cluster())
+            self.columns.append(Cluster())
             self.squares.append(Cluster())
 
     def solve(self) -> None:
