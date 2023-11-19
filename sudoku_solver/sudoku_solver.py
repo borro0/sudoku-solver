@@ -38,7 +38,6 @@ class Sudoku:
             self.squares.append(Cluster())
 
     def solve(self) -> None:
-        assert len(self.rows) == 9, "Sudoku should contain 9 rows"
         for row in self.rows:
             row.solve()
         for column in self.columns:
@@ -46,15 +45,4 @@ class Sudoku:
         for square in self.squares:
             square.solve()
 
-    def to_string(self) -> str:
-        string_sudoku = ""
-        for idx, row in enumerate(self.rows):
-            for cell_number, cell in enumerate(row.cells):
-                string_value = str(cell.value) if cell.value != 0 else " "
-                string_sudoku += string_value + " "
-                if cell_number == 2 or cell_number == 5:
-                    string_sudoku += "| "
-            string_sudoku += "\n"
-            if idx == 2 or idx == 5:
-                string_sudoku += "--------------------- \n"
-        return string_sudoku
+

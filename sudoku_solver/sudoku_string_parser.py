@@ -22,5 +22,18 @@ def parse_sudoku_row_string(sudoku: Sudoku, string_sudoku_row: str, row_number: 
         sudoku.columns[column_number].cells.append(cell)
         sudoku.squares[get_square_number(row_number, column_number)].cells.append(cell)
 
+def convert_sudoku_to_sting(sudoku: Sudoku) -> str:
+    string_sudoku = ""
+    for idx, row in enumerate(sudoku.rows):
+        for cell_number, cell in enumerate(row.cells):
+            string_value = str(cell.value) if cell.value != 0 else " "
+            string_sudoku += string_value + " "
+            if cell_number == 2 or cell_number == 5:
+                string_sudoku += "| "
+        string_sudoku += "\n"
+        if idx == 2 or idx == 5:
+            string_sudoku += "--------------------- \n"
+    return string_sudoku
+
 def get_square_number(row_number: int, column_number: int) -> int:
     return (row_number // 3) * 3 + column_number // 3

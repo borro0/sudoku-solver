@@ -1,5 +1,5 @@
 import pytest
-from sudoku_solver.sudoku_string_parser import parse_sudoku_from_string
+from sudoku_solver.sudoku_string_parser import parse_sudoku_from_string, convert_sudoku_to_sting
 
 @pytest.fixture
 def completed_sudoku_string():
@@ -20,7 +20,7 @@ def completed_sudoku_string():
 
 def test_FromAndToStringCompleteSolution(completed_sudoku_string):
     sudoku = parse_sudoku_from_string(completed_sudoku_string)
-    sudoku_string_output = sudoku.to_string()
+    sudoku_string_output = convert_sudoku_to_sting(sudoku)
     assert sudoku_string_output == completed_sudoku_string
 
 
@@ -39,7 +39,7 @@ def test_FromAndToStringInCompleteSolution():
         "2 3 1 | 8 5 7 | 6 4 9 \n"
     )
     sudoku = parse_sudoku_from_string(sudoku_string_input)
-    sudoku_string_output = sudoku.to_string()
+    sudoku_string_output = convert_sudoku_to_sting(sudoku)
     assert sudoku_string_output == sudoku_string_input
 
 
