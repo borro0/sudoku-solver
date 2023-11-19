@@ -29,6 +29,7 @@ class Cluster:
         self.dirty = True
 
     def solve(self):
+        self.dirty = False
         possible_values = set(range(1, 10)) - set([cell.value for cell in self.cells])
         for cell in self.cells:
             if not cell.is_solved():
@@ -45,12 +46,13 @@ class Sudoku:
             self.columns.append(Cluster())
             self.squares.append(Cluster())
 
+    def get_all_dirty_clusters(self) -> List[Cluster]:
+        return [cluster for cluster in self.rows + self.columns + self.squares if cluster.dirty]
+
     def solve(self) -> None:
-        for row in self.rows:
-            row.solve()
-        for column in self.columns:
-            column.solve()
-        for square in self.squares:
-            square.solve()
-
-
+        while True:
+            dirty_clusters = self.get_all_dirty_clusters()
+            if not dirty_clusters:
+                break
+            for cluster in dirty_clusters:
+                cluster.solve()

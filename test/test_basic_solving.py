@@ -3,6 +3,7 @@ from sudoku_solver.sudoku_string_parser import parse_sudoku_from_string, convert
 
 @pytest.fixture
 def completed_sudoku_string():
+    # Found in Denksport Sudoku 3-4, first sudoku in the book
     return (
         "5 1 7 | 6 8 9 | 4 3 2 \n"
         "3 8 6 | 1 2 4 | 5 9 7 \n"
@@ -76,3 +77,22 @@ def test_SolveSingleElementInColumn(completed_sudoku_string):
     sudoku.solve()
     sudoku_string_output = convert_sudoku_to_sting(sudoku)
     assert sudoku_string_output == completed_sudoku_string
+
+# def test_SolveCompleteExample(completed_sudoku_string):
+#     sudoku_string_input = (
+#         "  1   |   8   |       \n"
+#         "3 8 6 | 1 2 4 | 5 9 7 \n"
+#         "4 9 2 | 5 7 3 | 1 8 6 \n"
+#         "--------------------- \n"
+#         "7 5 4 | 9 3 2 |   6 1 \n"
+#         "1 2 9 | 4 6 8 | 3 7   \n"
+#         "8 6 3 | 7 1 5 | 9 2 4 \n"
+#         "--------------------- \n"
+#         "  4 8 | 2 9   | 7 5 3 \n"
+#         "9 7 5 |   4 6 | 2 1 8 \n"
+#         "2 3 1 | 8 5 7 | 6 4 9 \n"
+#     )
+#     sudoku = parse_sudoku_from_string(sudoku_string_input)
+#     sudoku.solve()
+#     sudoku_string_output = convert_sudoku_to_sting(sudoku)
+#     assert sudoku_string_output == completed_sudoku_string
