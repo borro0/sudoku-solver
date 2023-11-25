@@ -3,7 +3,7 @@ from sudoku_solver.sudoku_solver import Sudoku, Cluster, Cell
 
 def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     sudoku = Sudoku()
-    string_sudoku_stripped = string_sudoku.strip().strip("\n")
+    string_sudoku_stripped = string_sudoku.strip("\n")
     lines = string_sudoku_stripped.splitlines()
     row_number = 0
     for idx, line in enumerate(lines):

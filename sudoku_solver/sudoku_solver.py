@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Set
 
 
 class Cell:
@@ -19,6 +19,18 @@ class Cell:
         self.row.dirty = True
         self.column.dirty = True
         self.square.dirty = True
+
+    def remove_possible_values(self, values: Set[int]) -> None:
+        for value in values:
+            self.remove_possible_value(value)
+
+    def remove_possible_value(self, value: int) -> None:
+        if self.is_solved():
+            return
+        
+        self.possible_values.discard(value)
+        if len(self.possible_values) == 1:
+            self.value = self.possible_values.pop()
         
     def is_solved(self) -> bool:
         return self.value != 0
@@ -30,11 +42,10 @@ class Cluster:
 
     def solve(self):
         self.dirty = False
-        possible_values = set(range(1, 10)) - set([cell.value for cell in self.cells])
+        impossible_values = set([cell.value for cell in self.cells])
         for cell in self.cells:
             if not cell.is_solved():
-                if len(possible_values) == 1:
-                    cell.value = possible_values.pop()
+                cell.remove_possible_values(impossible_values)
 
 class Sudoku:
     def __init__(self):
