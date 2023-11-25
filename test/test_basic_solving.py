@@ -98,3 +98,23 @@ def test_NeedToKeepTrackOfPossibleValuesPerCell(completed_sudoku_string):
     sudoku_string_output = convert_sudoku_to_sting(sudoku)
     print(sudoku_string_output)
     assert sudoku_string_output == completed_sudoku_string
+
+# def test_CompleteExample(completed_sudoku_string):
+#     sudoku_string_input = (
+#         "  1   |   8   |       \n"
+#         "    6 |     4 |       \n"
+#         "  9 2 |   7   | 1   6 \n"
+#         "--------------------- \n"
+#         "7     |   3   | 8     \n"
+#         "  2 9 |       |   7 5 \n"
+#         "8     | 7     |   2 4 \n"
+#         "--------------------- \n"
+#         "6 4   |     1 |     3 \n"
+#         "      | 3     |   1   \n"
+#         "2 3 1 | 8 5 7 | 6 4 9 \n"
+#     )
+#     sudoku = parse_sudoku_from_string(sudoku_string_input)
+#     sudoku.solve()
+#     sudoku_string_output = convert_sudoku_to_sting(sudoku)
+#     print(sudoku_string_output)
+#     assert sudoku_string_output == completed_sudoku_string
