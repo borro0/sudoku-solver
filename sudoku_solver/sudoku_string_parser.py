@@ -14,9 +14,7 @@ def parse_sudoku_from_string(string_sudoku: str) -> "Sudoku":
     return sudoku
 
 
-def parse_sudoku_row_string(
-    sudoku: Sudoku, string_sudoku_row: str, row_number: int
-) -> Cluster:
+def parse_sudoku_row_string(sudoku: Sudoku, string_sudoku_row: str, row_number: int):
     number_indices = [0, 2, 4, 8, 10, 12, 16, 18, 20]
     for column_number, index in enumerate(number_indices):
         number = string_sudoku_row[index]
@@ -24,7 +22,7 @@ def parse_sudoku_row_string(
         row = sudoku.rows[row_number]
         column = sudoku.columns[column_number]
         square = sudoku.squares[get_square_number(row_number, column_number)]
-        cell = Cell(value, row, column, square)
+        cell = Cell(value, row, column, square, x=column_number, y=row_number)
         row.cells.append(cell)
         column.cells.append(cell)
         square.cells.append(cell)
